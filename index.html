@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>FedEx Freight × Microsoft 365 Copilot — White-Glove Session</title>
+<style>
+  :root{
+    --purple:#4D148C;
+    --purple-dark:#3A0E6B;
+    --orange:#FF6600;
+    --ink:#222222;
+    --muted:#5a5a5a;
+    --bg:#ffffff;
+    --panel:#faf8fc;
+    --prompt-bg:#f4eefb;
+    --line:#e3dcef;
+    --ok:#1f8a4c;
+    --maxw:980px;
+    --font:"Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#f1edf6;
+      --muted:#b9b0c6;
+      --bg:#161318;
+      --panel:#211b2a;
+      --prompt-bg:#271f33;
+      --line:#3a3050;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--font);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.55;
+    font-size:17px;
+  }
+  a{color:var(--purple)}
+  @media (prefers-color-scheme: dark){ a{color:#c9a9ff} }
+
+  /* Header */
+  header.site{
+    background:linear-gradient(135deg,var(--purple) 0%,var(--purple-dark) 100%);
+    color:#fff;
+    padding:22px 20px 18px;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  .wordmark{font-size:30px;font-weight:800;letter-spacing:-0.5px;line-height:1.1}
+  .wordmark .ex{color:var(--orange)}
+  .wordmark .ms{font-weight:600;font-size:20px;opacity:.92}
+  .subtitle{margin-top:6px;font-size:15px;opacity:.95}
+
+  /* Tabs nav */
+  nav.tabs{
+    position:sticky;top:0;z-index:20;
+    background:var(--purple-dark);
+    border-bottom:3px solid var(--orange);
+    overflow-x:auto;white-space:nowrap;
+    -webkit-overflow-scrolling:touch;
+  }
+  nav.tabs .wrap{display:flex;gap:2px}
+  .tab-btn{
+    appearance:none;border:0;background:transparent;
+    color:#e9e2f5;font-family:var(--font);font-size:15px;font-weight:600;
+    padding:13px 16px;cursor:pointer;white-space:nowrap;
+    border-bottom:3px solid transparent;margin-bottom:-3px;
+  }
+  .tab-btn:hover{color:#fff;background:rgba(255,255,255,.08)}
+  .tab-btn[aria-selected="true"]{color:#fff;border-bottom-color:var(--orange)}
+  .tab-btn:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+
+  /* Panels */
+  main{max-width:var(--maxw);margin:0 auto;padding:26px 20px 60px}
+  .panel{display:none;animation:fade .2s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:.4}to{opacity:1}}
+
+  .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.6px;
+    text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+  h1{font-size:28px;margin:.1em 0 .35em;color:var(--ink)}
+  h2{font-size:21px;margin:1.4em 0 .5em;color:var(--purple);
+     border-bottom:2px solid var(--line);padding-bottom:.25em}
+  @media (prefers-color-scheme: dark){ h2{color:#c9a9ff} }
+  h3{font-size:16px;margin:1.2em 0 .4em}
+  p.lead{font-size:18px;color:var(--muted)}
+  .filebar{
+    background:var(--panel);border:1px solid var(--line);
+    border-inline-start:5px solid var(--orange);
+    border-radius:8px;padding:11px 14px;margin:14px 0 6px;font-size:15.5px}
+  .filebar b{color:var(--purple)}
+  @media (prefers-color-scheme: dark){ .filebar b{color:#c9a9ff} }
+
+  /* Prompt card */
+  .card{
+    position:relative;background:var(--prompt-bg);
+    border:1px solid var(--line);border-inline-start:5px solid var(--purple);
+    border-radius:10px;padding:14px 96px 14px 16px;margin:12px 0;
+  }
+  .card .ptext{margin:0;font-size:16.5px}
+  .card--fallback{border-inline-start-color:var(--muted);opacity:.95}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.4px;
+    text-transform:uppercase;color:#fff;background:var(--muted);
+    border-radius:20px;padding:2px 9px;margin-bottom:6px}
+  .tag.go{background:var(--orange)}
+  .copy-btn{
+    position:absolute;top:11px;inset-inline-end:11px;
+    appearance:none;border:0;border-radius:7px;cursor:pointer;
+    background:var(--purple);color:#fff;font-family:var(--font);
+    font-size:13.5px;font-weight:700;padding:7px 13px;
+  }
+  .copy-btn:hover{background:var(--purple-dark)}
+  .copy-btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+  .copy-btn.copied{background:var(--ok)}
+
+  /* helpful note */
+  .note{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:12px 14px;margin:14px 0;font-size:15px;color:var(--muted)}
+  .note b{color:var(--ink)}
+
+  /* tables */
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:15px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:start;vertical-align:top}
+  th{background:var(--purple);color:#fff;font-weight:700}
+  tr:nth-child(even) td{background:var(--panel)}
+
+  /* steps + checklist */
+  ol.steps{padding-inline-start:22px}
+  ol.steps li{margin:8px 0}
+  ul.check{list-style:none;padding:0;margin:10px 0}
+  ul.check li{display:flex;align-items:flex-start;gap:10px;margin:8px 0;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  ul.check input{margin-top:3px;width:18px;height:18px;accent-color:var(--orange);flex:0 0 auto}
+
+  /* CTA button */
+  .cta{display:inline-block;background:var(--orange);color:#fff;text-decoration:none;
+    font-weight:700;padding:12px 20px;border-radius:9px;margin:8px 0;font-size:16px}
+  .cta:hover{background:#e65c00}
+  .cta.secondary{background:var(--purple)}
+  .cta.secondary:hover{background:var(--purple-dark)}
+
+  footer.site{border-top:1px solid var(--line);margin-top:30px;
+    padding:18px 20px;color:var(--muted);font-size:13.5px;text-align:center}
+
+  @media (max-width:560px){
+    .wordmark{font-size:24px}.wordmark .ms{font-size:16px;display:block;margin-top:2px}
+    h1{font-size:23px}.card{padding-inline-end:16px;padding-top:44px}
+    .copy-btn{top:9px}
+  }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <div class="wordmark">Fed<span class="ex">Ex</span> Freight <span class="ms">× Microsoft 365 Copilot</span></div>
+    <div class="subtitle">White-Glove Session &nbsp;·&nbsp; Wednesday, June 10, 2026 &nbsp;·&nbsp; Memphis &nbsp;·&nbsp; 90 minutes, hands-on</div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Session sections">
+  <div class="wrap" role="tablist">
+    <button class="tab-btn" role="tab" id="tab-welcome" aria-controls="welcome" aria-selected="true">Welcome</button>
+    <button class="tab-btn" role="tab" id="tab-before" aria-controls="before" aria-selected="false">Before we start</button>
+    <button class="tab-btn" role="tab" id="tab-copilot" aria-controls="copilot" aria-selected="false">M365 Copilot App</button>
+    <button class="tab-btn" role="tab" id="tab-word" aria-controls="word" aria-selected="false">Word</button>
+    <button class="tab-btn" role="tab" id="tab-excel" aria-controls="excel" aria-selected="false">Excel</button>
+    <button class="tab-btn" role="tab" id="tab-powerpoint" aria-controls="powerpoint" aria-selected="false">PowerPoint</button>
+    <button class="tab-btn" role="tab" id="tab-outlook" aria-controls="outlook" aria-selected="false">Outlook</button>
+    <button class="tab-btn" role="tab" id="tab-makeityours" aria-controls="makeityours" aria-selected="false">Make it yours</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- WELCOME -->
+  <section class="panel active" id="welcome" role="tabpanel" aria-labelledby="tab-welcome">
+    <span class="eyebrow">Welcome</span>
+    <h1>Let’s put Copilot to work</h1>
+    <p class="lead">Over the next 90 minutes you’ll run real prompts in the Microsoft apps you already use — on safe practice data and your own inbox. Everything here is read-only or a draft: nothing sends, changes, or deletes unless you choose to.</p>
+    <p><a class="cta" href="https://aka.ms/FedExFreightDemoData" target="_blank" rel="noopener">Get the demo data →</a></p>
+    <h2>How today works</h2>
+    <ul>
+      <li>You’ll follow along on your own laptop — we go together, prompt by prompt.</li>
+      <li>Each app has its own tab above with the exact file and the prompts to run.</li>
+      <li>Tap <b>Copy</b> on any prompt, then paste it into Copilot. No typing, no cleanup.</li>
+    </ul>
+    <h2>Agenda at a glance</h2>
+    <table>
+      <thead><tr><th>Time</th><th>Focus</th><th>App</th><th>File</th></tr></thead>
+      <tbody>
+        <tr><td>0:00–0:08</td><td>Welcome &amp; readiness check</td><td>—</td><td>—</td></tr>
+        <tr><td>0:08–0:22</td><td>Catch up fast</td><td>M365 Copilot App</td><td>Your inbox &amp; Teams</td></tr>
+        <tr><td>0:22–0:38</td><td>Make sense of a contract</td><td>Word</td><td>Transition Services Agreement</td></tr>
+        <tr><td>0:38–0:56</td><td>Find the story in the numbers</td><td>Excel</td><td>Operations &amp; Finance data</td></tr>
+        <tr><td>0:56–1:12</td><td>Build the executive update</td><td>PowerPoint</td><td>Month 1 brief → deck</td></tr>
+        <tr><td>1:12–1:24</td><td>Communicate it</td><td>Outlook</td><td>New email + a thread</td></tr>
+        <tr><td>1:24–1:30</td><td>Make it yours &amp; close</td><td>Any</td><td>Your pick</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>New to Copilot?</b> You’re in the right place. Start on the <b>Before we start</b> tab to get set up, then move left to right through the app tabs.</div>
+  </section>
+
+  <!-- BEFORE WE START -->
+  <section class="panel" id="before" role="tabpanel" aria-labelledby="tab-before">
+    <span class="eyebrow">Get set up — 5 minutes</span>
+    <h1>Before we start</h1>
+
+    <h2>1 · Get the demo data and save it to OneDrive</h2>
+    <p><a class="cta secondary" href="https://aka.ms/FedExFreightDemoData" target="_blank" rel="noopener">Open the demo data library →</a></p>
+    <ol class="steps">
+      <li>Open the demo data library with the button above.</li>
+      <li>Click the <b>“Download”</b> button next to each of the 8 files.</li>
+      <li>The 8 files will land in your <b>Downloads</b> folder.</li>
+      <li>In <b>OneDrive</b>, create a new folder called <b>“Copilot Demo”</b> and copy the 8 files into it.</li>
+      <li>Open one file from the <b>Copilot Demo</b> folder to confirm it’s there. Copilot can only reference files that live in OneDrive or SharePoint.</li>
+    </ol>
+    <div class="note"><b>Excel tip:</b> open the Operations &amp; Finance workbook and make sure <b>AutoSave</b> (top-left) is <b>ON</b> — Copilot needs the file in OneDrive to analyze it.</div>
+
+    <h2>2 · Readiness checklist</h2>
+    <p>Tick these off before the first prompt. If anything’s missing, flag it now.</p>
+    <ul class="check" id="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">Connected to the <b>Internet</b></label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Signed in to your <b>FedEx Freight (work) account</b> — not a personal one</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">Copilot icon visible in <b>Word, Excel, PowerPoint, and Outlook</b></label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">All 8 practice files copied to your OneDrive <b>“Copilot Demo”</b> folder</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5"><b>AutoSave ON</b> for the Excel workbook</label></li>
+    </ul>
+    <div class="note"><b>No Copilot icon in an app?</b> You may need the license assigned or a quick restart of the app — raise your hand and we’ll sort it before we begin.</div>
+  </section>
+
+  <!-- M365 COPILOT APP -->
+  <section class="panel" id="copilot" role="tabpanel" aria-labelledby="tab-copilot">
+    <span class="eyebrow">Module 1 · Catch up fast</span>
+    <h1>Microsoft 365 Copilot App</h1>
+    <div class="filebar"><b>File:</b> Your own email &amp; Teams (live, read-only) &nbsp;·&nbsp; <b>Fallback:</b> CFG_Email_and_Teams_Threads.docx</div>
+    <p class="lead">Open the Microsoft 365 Copilot app (or the Copilot app in Teams) in <b>Work</b> mode. This reads your real inbox and Teams and hands you a triage — and it only ever sees what you already have access to.</p>
+
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Summarize my unread email from the last 7 days and list anything that needs a reply or a decision from me.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">What did I miss in my Teams chats and channels this week? List any action items assigned to me and who is waiting on me.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Catch me up on everything related to the FedEx Freight launch across my email and chats, and tell me what still needs my attention.</p></div>
+
+    <div class="card card--fallback"><span class="tag">Fallback</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Summarize CFG_Email_and_Teams_Threads.docx and list the open action items with their owners.</p></div>
+
+    <div class="note"><b>Helpful:</b> reference a file by typing <b>/</b> then its name. This is all read-only — nothing is sent, moved, or changed. Notice Copilot only surfaces what you can already see; that’s your built-in security guardrail.</div>
+  </section>
+
+  <!-- WORD -->
+  <section class="panel" id="word" role="tabpanel" aria-labelledby="tab-word">
+    <span class="eyebrow">Module 2 · Make sense of a contract</span>
+    <h1>Word</h1>
+    <div class="filebar"><b>File:</b> CFG_Transition_Services_Agreement.docx &nbsp;·&nbsp; <b>Stretch:</b> CFG_Carrier_Service_Agreement.pdf</div>
+    <p class="lead">Open the file in Word, then click the <b>Copilot</b> icon on the Home ribbon and paste a prompt.</p>
+
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Summarize this agreement in plain language: what services FedEx Corporation is providing to FedEx Freight, for how long, and what we are obligated to pay or deliver in return.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Create a table of every key date, milestone, fee, and termination or exit condition in this agreement.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">List the top five risks or ambiguous terms a VP should raise with Legal. For each one, quote the section it comes from.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Draft a half-page summary memo of this agreement for my operations leaders who will not read the full contract.</p></div>
+
+    <div class="note"><b>Helpful:</b> Copilot quotes the exact section it pulled from — handy when you hand findings to Legal. The same prompts work on the PDF carrier agreement through Copilot Chat.</div>
+  </section>
+
+  <!-- EXCEL -->
+  <section class="panel" id="excel" role="tabpanel" aria-labelledby="tab-excel">
+    <span class="eyebrow">Module 3 · Find the story in the numbers</span>
+    <h1>Excel</h1>
+    <div class="filebar"><b>File:</b> CFG_Operations_and_Finance_Data.xlsx</div>
+    <p class="lead">Open in Excel. First, click inside the data and press <b>Ctrl+T</b> to format it as a Table, and make sure <b>AutoSave</b> is ON — Copilot’s analysis needs both.</p>
+
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Analyze this data and give me the three most important trends in our service performance and cost this month.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Which service centers have the lowest on-time delivery percentage, and how does that compare with their cost per shipment?</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Add a column that calculates cost per shipment and flag the bottom five performers.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Create a PivotTable that summarizes total shipments, tonnage, and revenue by service center.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Insert a chart showing the weekly on-time delivery trend.</p></div>
+
+    <div class="note"><b>Helpful:</b> if a column name in a prompt doesn’t match your sheet, just swap in the real header. Stuck? Ask: <b>What questions can you answer about this data?</b></div>
+  </section>
+
+  <!-- POWERPOINT -->
+  <section class="panel" id="powerpoint" role="tabpanel" aria-labelledby="tab-powerpoint">
+    <span class="eyebrow">Module 4 · Build the executive update</span>
+    <h1>PowerPoint</h1>
+    <div class="filebar"><b>File:</b> CFG_Month1_Business_Review_Brief.docx → a new deck &nbsp;·&nbsp; <b>Fallback:</b> CFG_Starter_Deck.pptx</div>
+    <p class="lead">Open a blank presentation, click <b>Copilot</b>, and choose <b>Create presentation from file</b>.</p>
+
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Create a presentation from CFG_Month1_Business_Review_Brief.docx for a leadership audience. Keep it to about eight slides.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Add an executive scorecard slide summarizing our Month 1 operational KPIs.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Rewrite the speaker notes on the opening slide so I can deliver it in under 60 seconds.</p></div>
+
+    <div class="note"><b>Helpful:</b> this is a strong first draft to edit, not a finished deck. If “Create from file” is slow, open <b>CFG_Starter_Deck.pptx</b> and ask Copilot to summarize it in three takeaways and apply a cleaner, more executive design.</div>
+  </section>
+
+  <!-- OUTLOOK -->
+  <section class="panel" id="outlook" role="tabpanel" aria-labelledby="tab-outlook">
+    <span class="eyebrow">Module 5 · Communicate it</span>
+    <h1>Outlook</h1>
+    <div class="filebar"><b>File:</b> A new email + a real thread in your inbox</div>
+    <p class="lead">In a new email, choose <b>Draft with Copilot</b>. Then open a long thread and use Copilot to <b>Summarize</b>. Nothing sends until you press Send.</p>
+
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Draft an email to my service-center directors sharing our Month 1 results and the top three priorities for next month. Tone: confident, concise, no jargon.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Make it shorter, add a clear call to action, and give me a one-line subject.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Summarize this thread and list any action items assigned to me.</p></div>
+
+    <div class="note"><b>Helpful:</b> try <b>Coaching by Copilot</b> on a draft — it scores tone and clarity and suggests improvements before you send.</div>
+  </section>
+
+  <!-- MAKE IT YOURS -->
+  <section class="panel" id="makeityours" role="tabpanel" aria-labelledby="tab-makeityours">
+    <span class="eyebrow">Wrap-up</span>
+    <h1>Make it yours</h1>
+    <p class="lead">Pick the prompt that matches your world, run it, and let’s hear a few results.</p>
+
+    <h2>Pick your function</h2>
+    <div class="card"><span class="tag go">Operations</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">List the operational risks in the Month 1 brief and group them by likelihood and impact.</p></div>
+    <div class="card"><span class="tag go">Finance / Accounting / FP&amp;A</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">From the operations and finance data, summarize the main cost drivers and where margin is leaking by service center.</p></div>
+    <div class="card"><span class="tag go">Data &amp; Analytics</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">What additional data fields would make this operations dataset more useful for trend analysis?</p></div>
+    <div class="card"><span class="tag go">Commercial / Sales</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Draft a customer-facing summary of our service performance improvements this month.</p></div>
+    <div class="card"><span class="tag go">Safety &amp; Recovery</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Scan the Month 1 brief for any safety or recovery-operations items and turn them into a watch list.</p></div>
+    <div class="card"><span class="tag go">Real Estate / Facilities</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Based on the service-center data, which locations show the most strain and may need a capacity review?</p></div>
+    <div class="card"><span class="tag go">IT / Engineering / Enterprise Apps</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Summarize the transition services agreement and flag every IT system, application, or service we depend on FedEx for.</p></div>
+    <div class="card"><span class="tag go">Enterprise Productivity / Adoption</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Draft a five-step tip sheet to help my team start using Copilot this week.</p></div>
+
+    <h2>Bonus prompts, if you have time</h2>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Compare CFG_Transition_Services_Agreement.docx and CFG_Carrier_Service_Agreement.pdf and tell me where our obligations overlap or conflict.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Based on this trend, forecast next month's shipment volume by service center.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Turn the Month 1 brief into a one-page FAQ for frontline employees.</p></div>
+
+    <h2>Take it home</h2>
+    <ul>
+      <li>Copilot is already in the apps you opened today — the icon is right there.</li>
+      <li>Build one habit this week: start one task a day by asking Copilot first.</li>
+      <li>The Executive Prompt Guide is yours to keep — forward it to your teams.</li>
+      <li><b>IT &amp; data leaders:</b> the natural next conversation is Copilot agents and Copilot Studio. Let’s book that follow-up.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="site">
+  FedEx Freight × Microsoft 365 Copilot &nbsp;·&nbsp; White-Glove Session &nbsp;·&nbsp; For internal enablement use
+</footer>
+
+<script>
+(function(){
+  // ----- Tabs -----
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+  function activate(tab, focus){
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', t===tab ? 'true':'false'); });
+    panels.forEach(function(p){
+      p.classList.toggle('active', p.id === tab.getAttribute('aria-controls'));
+    });
+    if(focus){ tab.focus(); }
+    if(window.scrollTo){ window.scrollTo({top:0, behavior:'smooth'}); }
+    try{ history.replaceState(null,'','#'+tab.getAttribute('aria-controls')); }catch(e){}
+  }
+  tabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){ activate(tab,false); });
+    tab.addEventListener('keydown', function(e){
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();
+        var dir = e.key==='ArrowRight' ? 1 : -1;
+        var next = (i + dir + tabs.length) % tabs.length;
+        activate(tabs[next], true);
+      }
+    });
+  });
+  // open tab from URL hash if present
+  if(location.hash){
+    var match = tabs.filter(function(t){ return '#'+t.getAttribute('aria-controls') === location.hash; })[0];
+    if(match){ activate(match,false); }
+  }
+
+  // ----- Copy buttons -----
+  function copyText(text, btn){
+    function ok(){
+      var label = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = label || 'Copy'; btn.classList.remove('copied'); }, 1600);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(ok).catch(function(){ fallback(text, ok); });
+    } else { fallback(text, ok); }
+  }
+  function fallback(text, ok){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.position='absolute'; ta.style.left='-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); ok(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var card = btn.closest('.card');
+      var p = card ? card.querySelector('.ptext') : null;
+      if(p){ copyText(p.textContent.trim(), btn); }
+    });
+  });
+
+  // ----- Checklist persistence -----
+  document.querySelectorAll('#checklist input[type=checkbox]').forEach(function(box){
+    try{
+      var key = 'ffwg_'+box.id;
+      if(localStorage.getItem(key)==='1'){ box.checked = true; }
+      box.addEventListener('change', function(){
+        try{ localStorage.setItem(key, box.checked ? '1':'0'); }catch(e){}
+      });
+    }catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

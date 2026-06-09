@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
 <meta charset="utf-8">
@@ -280,13 +280,11 @@
     <div class="card"><button class="copy-btn" type="button">Copy</button>
       <p class="ptext">Analyze this data and give me the three most important trends in our service performance and cost this month.</p></div>
     <div class="card"><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">Which service centers have the lowest on-time delivery percentage, and how does that compare with their cost per shipment?</p></div>
-    <div class="card"><button class="copy-btn" type="button">Copy</button>
       <p class="ptext">Add a column that calculates cost per shipment and flag the bottom five performers.</p></div>
     <div class="card"><button class="copy-btn" type="button">Copy</button>
       <p class="ptext">Create a PivotTable that summarizes total shipments, tonnage, and revenue by service center.</p></div>
     <div class="card"><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">Insert a chart showing the weekly on-time delivery trend.</p></div>
+      <p class="ptext">Create a service center performance dashboard on a new worksheet. Include a summary by service center with shipments, tonnage, revenue, on-time delivery percentage, and cost per shipment, add charts for on-time performance and cost per shipment, and highlight the top and bottom five performers.</p></div>
 
     <div class="note"><b>Helpful:</b> if a column name in a prompt doesn’t match your sheet, just swap in the real header. Stuck? Ask: <b>What questions can you answer about this data?</b></div>
   </section>
@@ -429,17 +427,6 @@
       var p = card ? card.querySelector('.ptext') : null;
       if(p){ copyText(p.textContent.trim(), btn); }
     });
-  });
-
-  // ----- Checklist persistence -----
-  document.querySelectorAll('#checklist input[type=checkbox]').forEach(function(box){
-    try{
-      var key = 'ffwg_'+box.id;
-      if(localStorage.getItem(key)==='1'){ box.checked = true; }
-      box.addEventListener('change', function(){
-        try{ localStorage.setItem(key, box.checked ? '1':'0'); }catch(e){}
-      });
-    }catch(e){}
   });
 })();
 </script>

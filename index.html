@@ -165,10 +165,10 @@
     <button class="tab-btn" role="tab" id="tab-welcome" aria-controls="welcome" aria-selected="true">Welcome</button>
     <button class="tab-btn" role="tab" id="tab-before" aria-controls="before" aria-selected="false">Before we start</button>
     <button class="tab-btn" role="tab" id="tab-copilot" aria-controls="copilot" aria-selected="false">M365 Copilot App</button>
+    <button class="tab-btn" role="tab" id="tab-outlook" aria-controls="outlook" aria-selected="false">Outlook</button>
     <button class="tab-btn" role="tab" id="tab-word" aria-controls="word" aria-selected="false">Word</button>
     <button class="tab-btn" role="tab" id="tab-excel" aria-controls="excel" aria-selected="false">Excel</button>
     <button class="tab-btn" role="tab" id="tab-powerpoint" aria-controls="powerpoint" aria-selected="false">PowerPoint</button>
-    <button class="tab-btn" role="tab" id="tab-outlook" aria-controls="outlook" aria-selected="false">Outlook</button>
     <button class="tab-btn" role="tab" id="tab-makeityours" aria-controls="makeityours" aria-selected="false">Make it yours</button>
   </div>
 </nav>
@@ -193,10 +193,10 @@
       <tbody>
         <tr><td>0:00–0:08</td><td>Welcome &amp; readiness check</td><td>—</td><td>—</td></tr>
         <tr><td>0:08–0:22</td><td>Catch up fast</td><td>M365 Copilot App</td><td>Your inbox &amp; Teams</td></tr>
-        <tr><td>0:22–0:38</td><td>Make sense of a contract</td><td>Word</td><td>Transition Services Agreement</td></tr>
-        <tr><td>0:38–0:56</td><td>Find the story in the numbers</td><td>Excel</td><td>Operations &amp; Finance data</td></tr>
-        <tr><td>0:56–1:12</td><td>Build the executive update</td><td>PowerPoint</td><td>Month 1 brief → deck</td></tr>
-        <tr><td>1:12–1:24</td><td>Communicate it</td><td>Outlook</td><td>New email + a thread</td></tr>
+        <tr><td>0:22–0:34</td><td>Communicate it</td><td>Outlook</td><td>New email + a thread</td></tr>
+        <tr><td>0:34–0:50</td><td>Make sense of a contract</td><td>Word</td><td>Transition Services Agreement</td></tr>
+        <tr><td>0:50–1:08</td><td>Find the story in the numbers</td><td>Excel</td><td>Operations &amp; Finance data</td></tr>
+        <tr><td>1:08–1:24</td><td>Build the executive update</td><td>PowerPoint</td><td>Month 1 brief → deck</td></tr>
         <tr><td>1:24–1:30</td><td>Make it yours &amp; close</td><td>Any</td><td>Your pick</td></tr>
       </tbody>
     </table>
@@ -251,9 +251,28 @@
     <div class="note"><b>Helpful:</b> reference a file by typing <b>/</b> then its name. This is all read-only — nothing is sent, moved, or changed. Notice Copilot only surfaces what you can already see; that’s your built-in security guardrail.</div>
   </section>
 
+  <!-- OUTLOOK -->
+  <section class="panel" id="outlook" role="tabpanel" aria-labelledby="tab-outlook">
+    <span class="eyebrow">Module 2 · Communicate it</span>
+    <h1>Outlook</h1>
+    <div class="filebar"><b>File:</b> A new email + a real thread in your inbox</div>
+    <p class="lead">Act on what you just found. Draft a note with <b>Draft with Copilot</b>, summarize a long thread, and turn a thread into a meeting with <b>Schedule with Copilot</b>. Nothing sends until you press Send.</p>
+
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Draft an email to my service-center directors sharing our Month 1 results and the top three priorities for next month. Tone: confident, concise, no jargon.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Make it shorter, add a clear call to action, and give me a one-line subject.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Summarize this thread and list any action items assigned to me.</p></div>
+    <div class="card"><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Schedule a 30-minute meeting with everyone on this thread to resolve the open action items, and suggest a few times next week.</p></div>
+
+    <div class="note"><b>Helpful:</b> for the last one, open a thread and click <b>Schedule with Copilot</b>, then paste the prompt — it drafts the invite, adds the people from the thread, and proposes times. Try <b>Coaching by Copilot</b> on a draft to score tone and clarity before you send.</div>
+  </section>
+
   <!-- WORD -->
   <section class="panel" id="word" role="tabpanel" aria-labelledby="tab-word">
-    <span class="eyebrow">Module 2 · Make sense of a contract</span>
+    <span class="eyebrow">Module 3 · Make sense of a contract</span>
     <h1>Word</h1>
     <div class="filebar"><b>File:</b> CFG_Transition_Services_Agreement.docx &nbsp;·&nbsp; <b>Stretch:</b> CFG_Carrier_Service_Agreement.pdf</div>
     <p class="lead">Open the file in Word, then click the <b>Copilot</b> icon on the Home ribbon and paste a prompt.</p>
@@ -272,7 +291,7 @@
 
   <!-- EXCEL -->
   <section class="panel" id="excel" role="tabpanel" aria-labelledby="tab-excel">
-    <span class="eyebrow">Module 3 · Find the story in the numbers</span>
+    <span class="eyebrow">Module 4 · Find the story in the numbers</span>
     <h1>Excel</h1>
     <div class="filebar"><b>File:</b> CFG_Operations_and_Finance_Data.xlsx</div>
     <p class="lead">Open in Excel. First, click inside the data and press <b>Ctrl+T</b> to format it as a Table, and make sure <b>AutoSave</b> is ON — Copilot’s analysis needs both.</p>
@@ -291,7 +310,7 @@
 
   <!-- POWERPOINT -->
   <section class="panel" id="powerpoint" role="tabpanel" aria-labelledby="tab-powerpoint">
-    <span class="eyebrow">Module 4 · Build the executive update</span>
+    <span class="eyebrow">Module 5 · Build the executive update</span>
     <h1>PowerPoint</h1>
     <div class="filebar"><b>File:</b> CFG_Month1_Business_Review_Brief.docx → a new deck &nbsp;·&nbsp; <b>Fallback:</b> CFG_Starter_Deck.pptx</div>
     <p class="lead">Open a blank presentation, click <b>Copilot</b>, and choose <b>Create presentation from file</b>.</p>
@@ -304,23 +323,6 @@
       <p class="ptext">Rewrite the speaker notes on the opening slide so I can deliver it in under 60 seconds.</p></div>
 
     <div class="note"><b>Helpful:</b> this is a strong first draft to edit, not a finished deck. If “Create from file” is slow, open <b>CFG_Starter_Deck.pptx</b> and ask Copilot to summarize it in three takeaways and apply a cleaner, more executive design.</div>
-  </section>
-
-  <!-- OUTLOOK -->
-  <section class="panel" id="outlook" role="tabpanel" aria-labelledby="tab-outlook">
-    <span class="eyebrow">Module 5 · Communicate it</span>
-    <h1>Outlook</h1>
-    <div class="filebar"><b>File:</b> A new email + a real thread in your inbox</div>
-    <p class="lead">In a new email, choose <b>Draft with Copilot</b>. Then open a long thread and use Copilot to <b>Summarize</b>. Nothing sends until you press Send.</p>
-
-    <div class="card"><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">Draft an email to my service-center directors sharing our Month 1 results and the top three priorities for next month. Tone: confident, concise, no jargon.</p></div>
-    <div class="card"><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">Make it shorter, add a clear call to action, and give me a one-line subject.</p></div>
-    <div class="card"><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">Summarize this thread and list any action items assigned to me.</p></div>
-
-    <div class="note"><b>Helpful:</b> try <b>Coaching by Copilot</b> on a draft — it scores tone and clarity and suggests improvements before you send.</div>
   </section>
 
   <!-- MAKE IT YOURS -->

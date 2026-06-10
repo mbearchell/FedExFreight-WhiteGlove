@@ -101,6 +101,9 @@
     border-radius:10px;padding:14px 96px 14px 16px;margin:12px 0;
   }
   .card .ptext{margin:0;font-size:16.5px}
+  .fileref{margin:10px 0 0;font-size:13.5px;color:var(--muted);font-style:italic}
+  .fileref b{font-style:normal;color:var(--purple)}
+  @media (prefers-color-scheme: dark){ .fileref b{color:#c9a9ff} }
   .card--fallback{border-inline-start-color:var(--muted);opacity:.95}
   .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.4px;
     text-transform:uppercase;color:#fff;background:var(--muted);
@@ -316,7 +319,8 @@
     <p class="lead">Open a blank presentation, click <b>Copilot</b>, and choose <b>Create presentation from file</b>.</p>
 
     <div class="card"><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">Create a presentation from CFG_Month1_Business_Review_Brief.docx for a leadership audience. Keep it to about eight slides.</p></div>
+      <p class="ptext">Create a presentation from the attached file for a leadership audience. Keep it to about eight slides.</p>
+      <p class="fileref">File to use: <b>CFG_Month1_Business_Review_Brief.docx</b></p></div>
     <div class="card"><button class="copy-btn" type="button">Copy</button>
       <p class="ptext">Add an executive scorecard slide summarizing our Month 1 operational KPIs.</p></div>
     <div class="card"><button class="copy-btn" type="button">Copy</button>

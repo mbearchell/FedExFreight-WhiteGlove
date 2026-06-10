@@ -192,7 +192,7 @@
       <thead><tr><th>Time</th><th>Focus</th><th>App</th><th>File</th></tr></thead>
       <tbody>
         <tr><td>0:00–0:08</td><td>Welcome &amp; readiness check</td><td>—</td><td>—</td></tr>
-        <tr><td>0:08–0:22</td><td>Catch up fast</td><td>M365 Copilot App</td><td>Your inbox &amp; Teams</td></tr>
+        <tr><td>0:08–0:22</td><td>Research, then catch up</td><td>M365 Copilot App</td><td>Web + your inbox</td></tr>
         <tr><td>0:22–0:34</td><td>Communicate it</td><td>Outlook</td><td>New email + a thread</td></tr>
         <tr><td>0:34–0:50</td><td>Make sense of a contract</td><td>Word</td><td>Transition Services Agreement</td></tr>
         <tr><td>0:50–1:08</td><td>Find the story in the numbers</td><td>Excel</td><td>Operations &amp; Finance data</td></tr>
@@ -233,22 +233,22 @@
 
   <!-- M365 COPILOT APP -->
   <section class="panel" id="copilot" role="tabpanel" aria-labelledby="tab-copilot">
-    <span class="eyebrow">Module 1 · Catch up fast</span>
+    <span class="eyebrow">Module 1 · Research, then catch up</span>
     <h1>Microsoft 365 Copilot App</h1>
-    <div class="filebar"><b>File:</b> Your own email &amp; Teams (live, read-only) &nbsp;·&nbsp; <b>Fallback:</b> CFG_Email_and_Teams_Threads.docx</div>
-    <p class="lead">Open the Microsoft 365 Copilot app (or the Copilot app in Teams) in <b>Work</b> mode. This reads your real inbox and Teams and hands you a triage — and it only ever sees what you already have access to.</p>
+    <div class="filebar"><b>Prompts 1–2:</b> the web &amp; the Researcher agent &nbsp;·&nbsp; <b>Prompt 3:</b> your own inbox (read-only)</div>
+    <p class="lead">Open the Microsoft 365 Copilot app. We’ll do three things: a fast web-research answer, the same question taken far deeper with the <b>Researcher agent</b>, then turn Copilot on your own inbox to plan your day.</p>
 
-    <div class="card"><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">Summarize my unread email from the last 7 days and list anything that needs a reply or a decision from me.</p></div>
-    <div class="card"><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">What did I miss in my Teams chats and channels this week? List any action items assigned to me and who is waiting on me.</p></div>
-    <div class="card"><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">Catch me up on everything related to the FedEx Freight launch across my email and chats, and tell me what still needs my attention.</p></div>
+    <div class="card"><span class="tag go">1 · Web research</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Give me a briefing on the current state of the U.S. less-than-truckload (LTL) freight market: demand trends, pricing, and the top three challenges carriers are facing right now. Use recent sources and include links.</p></div>
+    <div class="card"><span class="tag go">2 · Researcher agent</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Build a competitive landscape of the largest U.S. LTL freight carriers. Compare their service coverage, recent strategic moves, and pricing trends, then recommend three areas where a newly independent freight carrier should focus to win market share. Cite reputable industry sources.</p></div>
+    <div class="card"><span class="tag go">3 · Catch up</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Summarize everything I may have missed in the last 3 days across Teams chats, emails, and meetings. Highlight key decisions, action items assigned to me, and anything requiring follow-up. Organize the output into sections by source (Teams, Email, Meetings) and prioritize by urgency.</p></div>
 
-    <div class="card card--fallback"><span class="tag">Fallback</span><button class="copy-btn" type="button">Copy</button>
-      <p class="ptext">Summarize CFG_Email_and_Teams_Threads.docx and list the open action items with their owners.</p></div>
+    <div class="card card--fallback"><span class="tag">Fallback for #3</span><button class="copy-btn" type="button">Copy</button>
+      <p class="ptext">Summarize CFG_Email_and_Teams_Threads.docx. Highlight key decisions, action items assigned to me, and anything requiring follow-up, organized by source and prioritized by urgency.</p></div>
 
-    <div class="note"><b>Helpful:</b> reference a file by typing <b>/</b> then its name. This is all read-only — nothing is sent, moved, or changed. Notice Copilot only surfaces what you can already see; that’s your built-in security guardrail.</div>
+    <div class="note"><b>Helpful:</b> for prompt 2, pick the <b>Researcher</b> agent first (or type <b>@</b> to find it) and let it run for a few minutes while you talk — the depth is the wow. Prompt 3 reads each person’s own mailbox, read-only; some new inboxes may be thin, so keep the fallback ready.</div>
   </section>
 
   <!-- OUTLOOK -->
